@@ -23,16 +23,16 @@ abstract class View implements ViewInterface
         return $this->renderFile($filename, $params);
     }
 
-    public function getTemplatesPath()
+    public function getTemplatesPath() : ?string
     {
         return $this->templatesPath;
     }
 
-    public function findFile(string $template, $throwExceptions = true)
+    public function findFile(string $template, $throwExceptions = true) : ?string
     {
-        $return = $this->getTemplatesPath() . '/' . $template;
+        $filename = $this->getTemplatesPath() . '/' . $template;
 
-        if (is_file($return))
+        if (is_file($filename))
         {
             return $return;
         }
@@ -42,7 +42,7 @@ abstract class View implements ViewInterface
             throw new Exception('File not found: ' . $template);
         }
 
-        return false;
+        return null;
     }
 
 }
